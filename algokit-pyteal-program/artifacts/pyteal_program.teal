@@ -1,0 +1,55 @@
+#pragma version 6
+global GroupSize
+int 3
+==
+assert
+gtxn 0 TypeEnum
+int axfer
+==
+assert
+gtxn 0 AssetAmount
+int 0
+==
+assert
+gtxn 0 Sender
+addr Y6U4RBW7HFFGUW6U2HX2HARXFD2VZ4L43XVNI5RJ2QWHK5MGZNTLINXLFE
+==
+assert
+gtxn 0 AssetReceiver
+addr Y6U4RBW7HFFGUW6U2HX2HARXFD2VZ4L43XVNI5RJ2QWHK5MGZNTLINXLFE
+==
+assert
+gtxn 1 TypeEnum
+int pay
+==
+assert
+gtxn 1 Amount
+int 5000000
+==
+assert
+gtxn 1 Sender
+addr Y6U4RBW7HFFGUW6U2HX2HARXFD2VZ4L43XVNI5RJ2QWHK5MGZNTLINXLFE
+==
+assert
+gtxn 1 Receiver
+addr YGNXZR6PXQXSJXCFE6JIUQQBZQ6MC6HEJTZJCZLS3JZCU7ZB5KS7PFWBJY
+==
+assert
+gtxn 2 TypeEnum
+int axfer
+==
+assert
+gtxn 2 AssetAmount
+int 1
+==
+assert
+gtxn 2 Sender
+addr YGNXZR6PXQXSJXCFE6JIUQQBZQ6MC6HEJTZJCZLS3JZCU7ZB5KS7PFWBJY
+==
+assert
+gtxn 2 AssetReceiver
+addr Y6U4RBW7HFFGUW6U2HX2HARXFD2VZ4L43XVNI5RJ2QWHK5MGZNTLINXLFE
+==
+assert
+int 1
+return
