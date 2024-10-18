@@ -1,0 +1,124 @@
+#pragma version 6
+txn ApplicationID
+int 0
+==
+bnz main_l18
+txn OnCompletion
+int OptIn
+==
+bnz main_l17
+txn OnCompletion
+int CloseOut
+==
+bnz main_l16
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l15
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l14
+txn OnCompletion
+int NoOp
+==
+bnz main_l7
+err
+main_l7:
+txna ApplicationArgs 0
+byte "UpdateGlobal"
+==
+bnz main_l13
+txna ApplicationArgs 0
+byte "UpdateLocal"
+==
+bnz main_l12
+txna ApplicationArgs 0
+byte "SendAlgos"
+==
+bnz main_l11
+err
+main_l11:
+txn Sender
+global CreatorAddress
+==
+assert
+txna ApplicationArgs 1
+btoi
+int 1000000
+<=
+assert
+itxn_begin
+int pay
+itxn_field TypeEnum
+txna Accounts 1
+itxn_field Receiver
+txna ApplicationArgs 1
+btoi
+itxn_field Amount
+int 0
+itxn_field Fee
+itxn_submit
+int 1
+return
+main_l12:
+txn Sender
+txn ApplicationID
+app_opted_in
+assert
+txn Sender
+byte "LocalText"
+byte "GlobalText"
+app_global_get
+app_local_put
+txn Sender
+byte "LocalInteger"
+byte "GlobalInteger"
+app_global_get
+app_local_put
+int 1
+return
+main_l13:
+byte "GlobalText"
+txna ApplicationArgs 1
+app_global_put
+byte "GlobalInteger"
+txna ApplicationArgs 2
+btoi
+app_global_put
+int 1
+return
+main_l14:
+int 0
+return
+main_l15:
+int 0
+return
+main_l16:
+int 1
+return
+main_l17:
+txn Sender
+txn ApplicationID
+app_opted_in
+assert
+txn Sender
+byte "LocalText"
+byte "welcome"
+app_local_put
+txn Sender
+byte "LocalInteger"
+int 0
+app_local_put
+int 1
+return
+main_l18:
+byte "GlobalText"
+txna ApplicationArgs 0
+app_global_put
+byte "GlobalInteger"
+txna ApplicationArgs 1
+btoi
+app_global_put
+int 1
+return
