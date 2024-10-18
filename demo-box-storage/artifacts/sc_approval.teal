@@ -1,0 +1,146 @@
+#pragma version 8
+txn ApplicationID
+int 0
+==
+bnz main_l26
+txn OnCompletion
+int OptIn
+==
+bnz main_l25
+txn OnCompletion
+int CloseOut
+==
+bnz main_l24
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l23
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l22
+txn OnCompletion
+int NoOp
+==
+bnz main_l7
+err
+main_l7:
+txna ApplicationArgs 0
+byte "create_box"
+==
+bnz main_l21
+txna ApplicationArgs 0
+byte "box_put"
+==
+bnz main_l20
+txna ApplicationArgs 0
+byte "box_replace"
+==
+bnz main_l19
+txna ApplicationArgs 0
+byte "box_read"
+==
+bnz main_l18
+txna ApplicationArgs 0
+byte "box_extract"
+==
+bnz main_l17
+txna ApplicationArgs 0
+byte "box_length"
+==
+bnz main_l16
+txna ApplicationArgs 0
+byte "box_delete"
+==
+bnz main_l15
+err
+main_l15:
+txna ApplicationArgs 1
+box_del
+assert
+int 1
+return
+main_l16:
+txna ApplicationArgs 1
+box_len
+store 7
+store 6
+load 7
+assert
+byte "box length"
+load 6
+app_global_put
+int 1
+return
+main_l17:
+txna ApplicationArgs 1
+box_get
+store 5
+store 4
+load 5
+assert
+byte "extracted"
+txna ApplicationArgs 1
+txna ApplicationArgs 2
+btoi
+txna ApplicationArgs 3
+btoi
+box_extract
+app_global_put
+int 1
+return
+main_l18:
+txna ApplicationArgs 1
+box_get
+store 3
+store 2
+load 3
+assert
+byte "output"
+load 2
+app_global_put
+int 1
+return
+main_l19:
+txna ApplicationArgs 1
+box_get
+store 1
+store 0
+load 1
+assert
+txna ApplicationArgs 1
+txna ApplicationArgs 2
+btoi
+txna ApplicationArgs 3
+box_replace
+int 1
+return
+main_l20:
+txna ApplicationArgs 1
+txna ApplicationArgs 2
+box_put
+int 1
+return
+main_l21:
+txna ApplicationArgs 1
+txna ApplicationArgs 2
+btoi
+box_create
+assert
+int 1
+return
+main_l22:
+int 1
+return
+main_l23:
+int 0
+return
+main_l24:
+int 0
+return
+main_l25:
+int 0
+return
+main_l26:
+int 1
+return
